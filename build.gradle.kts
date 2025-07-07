@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    implementation(libs.dotenv.kotlin)
+    implementation(libs.koog.agents)
     testImplementation(kotlin("test"))
 }
 

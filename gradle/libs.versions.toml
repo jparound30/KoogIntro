@@ -1,0 +1,9 @@
+[versions]
+dotenv-kotlin = "6.5.1"
+koog-agents = "0.2.1"
+
+[libraries]
+dotenv-kotlin = { group = "io.github.cdimascio", name = "dotenv-kotlin", version.ref = "dotenv-kotlin" }
+koog-agents = { group = "ai.koog", name = "koog-agents", version.ref = "koog-agents" }
+
+[plugins]
