@@ -14,7 +14,7 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 val dotenv = dotenv()
-val key = dotenv["GOOGLE_AI_API_KEY"]
+val key = dotenv["GOOGLE_AI_API_KEY"]!!
 val toolRegistry = ToolRegistry {
     tool(SayToUser)
     tool(AskUser)
@@ -29,15 +29,16 @@ val agent = AIAgent(
     toolRegistry = toolRegistry,
 ) {
     handleEvents {
-        onAgentRunError { strategyName: String, sessionUuid: Uuid?, throwable: Throwable ->
-            println("Agent finished with result: ${throwable.message}")
+        onAgentRunError { it ->
+            println("Agent finished with result: ${it.throwable.message}")
         }
-        onAgentFinished { strategyName: String, result: String? ->
-            println("Agent finished. result: $result")
+        onAgentFinished { it ->
+            println("Agent finished. result: ${it.result}")
         }
     }
 }
 
 fun main() = runBlocking {
     val result = agent.run("Hello! How can you help me?")
+    println("[Agent]: $result")
 }
