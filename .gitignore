@@ -45,3 +45,8 @@ bin/
 .DS_Store
 
 *.env
+/ctx/newSystemFeature.md
+/ctx/oldSystemFeature.md
+/ctx/Serializer.php
+/ctx/systemPrompt.md
+/ctx/unittestPolicy.md
