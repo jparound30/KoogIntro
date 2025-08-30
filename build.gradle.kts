@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "2.1.21"
+    kotlin("plugin.serialization") version "2.1.21"
 }
 
 group = "com.github.jparound30"
@@ -24,6 +25,7 @@ dependencies {
     implementation(libs.koog.agents)
     implementation(libs.slf4j.simple)
     implementation(libs.kotlin.logging.jvm)
+    implementation(libs.kotlinx.serialization.json)
     testImplementation(kotlin("test"))
 }
 
@@ -47,4 +49,14 @@ kotlin {
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.compilerOptions {
     freeCompilerArgs.set(listOf("-XXLanguage:+MultiDollarInterpolation"))
+}
+
+tasks.jar.configure {
+    manifest {
+        attributes(mapOf("Main-Class" to "com.github.jparound30.MainKt"))
+    }
+    configurations["compileClasspath"].forEach { file: File ->
+        from(zipTree(file.absoluteFile))
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
